@@ -13,3 +13,38 @@ CREATE TABLE users (
     date_of_birth DATE NOT NULL,
     total_post INT
 );
+
+CREATE TABLE Posts (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    userID INT NOT NULL,
+    title VARCHAR(255) NOT NULL,
+    content TEXT NOT NULL,
+    created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (userID) REFERENCES users(ID)
+);
+
+CREATE TABLE comments (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    postID INT NOT NULL,
+    userID INT NOT NULL,
+    commentText TEXT NOT NULL,
+    created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (postID) REFERENCES Posts(id),
+    FOREIGN KEY (userID) REFERENCES users(id)
+);
+
+CREATE TABLE categories (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    description TEXT
+);
+
+CREATE TABLE post_categories (
+    post_id INT NOT NULL,
+    category_id INT NOT NULL,
+    PRIMARY KEY (post_id, category_id),
+    FOREIGN KEY (post_id) REFERENCES Posts(id),
+    FOREIGN KEY (category_id) REFERENCES categories(id)
+);
