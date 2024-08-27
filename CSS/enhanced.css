@@ -1,139 +1,156 @@
+/* General Styles */
+body {
+    font-family: "Baskervville SC", serif;
+    background-color: #181818;
+    color: #e0e0e0;
+    margin: 0;
+    padding: 0;
+}
+
 /* Profile Header */
 .profile-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-    background-color: rgba(60, 57, 57, 0.7);
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 1000;
+    background: #282c34;
+    padding: 20px;
+    text-align: center;
+    border-bottom: 1px solid #333;
 }
 
 .profile-link, .logout-link {
-    padding: 10px 20px;
-    border-radius: 25px;
-    background-color: rgba(60, 57, 57, 0.7);
+    display: inline-block;
+    margin: 0 15px;
 }
 
 .profile-link a, .logout-link a {
-    color: lavender;
-    font-family: "Baskervville SC", serif;
+    color: #e0e0e0;
     text-decoration: none;
-    font-size: 1rem;
-    transition: color 0.3s ease;
+    font-size: 1.1rem;
 }
 
 .profile-link a:hover, .logout-link a:hover {
-    color: #f0e8ff;
-}
-
-.logout-link a {
-    color: red;
-    font-weight: bold;
+    color: #61dafb;
 }
 
 /* General Container Styles */
 .container {
-    max-width: 1200px; /* Increased width for wider containers */
-    margin: 80px auto 2% auto; /* Adjust margin to accommodate fixed profile header */
+    max-width: 1200px;
+    margin: 0 auto;
     padding: 20px;
-    background: linear-gradient(135deg, rgba(60, 57, 57, 0.8), rgba(30, 30, 30, 0.8));
-    border-radius: 25px;
-    box-sizing: border-box;
-    color: #ffffff;
-    overflow: hidden;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-/* Specific Container Styles */
-.container-profile-update {
-    max-width: 1200px; /* Ensure consistency in width */
-}
-
-.container-create {
-    max-width: 1200px; /* Ensure consistency in width */
-}
-
-.container-search {
-    max-width: 1200px; /* Ensure consistency in width */
-}
-
-.container-user-posts {
-    max-width: 1200px; /* Ensure consistency in width */
 }
 
 /* Profile Update Section */
 .profile-update {
-    background-color: rgba(60, 57, 57, 0.8);
+    background: #222;
     padding: 20px;
-    border-radius: 15px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 }
 
 .profile-update p {
-    margin: 10px 0;
+    margin: 0 0 10px;
+}
+
+/* Create and Search Section */
+.create-search {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.create-search .section-title {
+    font-size: 1.5rem;
+    color: #61dafb;
+}
+
+/* User Posts Section */
+.user-posts {
+    margin-top: 20px;
+}
+
+.user-posts .post {
+    background: #222;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.user-posts .post h2 {
+    margin-top: 0;
+    font-size: 1.6rem;
 }
 
 /* Section Titles */
 .section-title {
-    font-family: "Lilita One", sans-serif;
-    font-size: 2rem;
-    margin-bottom: 1rem;
-    text-align: center;
-    color: lavender;
+    font-size: 1.8rem;
+    color: #61dafb;
+    margin-bottom: 10px;
 }
 
 /* Button Styles */
 .btn {
-    padding: 12px 20px;
-    border-radius: 15px;
-    border: none;
-    color: #ffffff;
-    cursor: pointer;
-    font-family: "Baskervville SC", serif;
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 5px;
     font-size: 1rem;
-    transition: background-color 0.3s ease, color 0.3s ease;
-    display: block;
-    margin: 0 auto;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
 }
 
 .btn-primary {
-    background-color: rgba(18, 14, 14, 0.7);
+    background: #61dafb;
+    color: #fff;
+    border: none;
 }
 
 .btn-primary:hover {
-    background-color: rgba(18, 14, 14, 0.9);
+    background: #4fa3b6;
 }
 
 .btn-secondary {
-    background-color: rgba(60, 57, 57, 0.7);
+    background: #444;
+    color: #e0e0e0;
+    border: none;
 }
 
 .btn-secondary:hover {
-    background-color: rgba(60, 57, 57, 0.9);
+    background: #555;
 }
 
 .btn-edit {
-    background-color: #4caf50; /* Green for edit */
+    background: #ffcc00;
+    color: #333;
+    border: none;
 }
 
 .btn-edit:hover {
-    background-color: #45a049;
+    background: #e6b800;
 }
 
 .btn-delete {
-    background-color: #f44336; /* Red for delete */
+    background: #e60000;
+    color: #fff;
+    border: none;
 }
 
 .btn-delete:hover {
-    background-color: #d32f2f;
+    background: #cc0000;
 }
 
 /* Search Input */
 .search-input {
-    width: calc(100% - 100px);
-    display: inline-block;
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #333;
+    border-radius: 5px;
+    background: #222;
+    color: #e0e0e0;
+    font-size: 1rem;
+}
+
+.search-input:focus {
+    border-color: #61dafb;
+    outline: none;
+    background: #333;
 }

@@ -2,110 +2,94 @@
 
 /* General Page Layout */
 .container {
-    max-width: 1000px;
-    margin: 80px auto 2% auto; /* Adjust margin to accommodate fixed profile header */
+    max-width: 1200px;
+    margin: 0 auto;
     padding: 20px;
-    background: linear-gradient(135deg, rgba(60, 57, 57, 0.8), rgba(30, 30, 30, 0.8));
-    border-radius: 25px;
-    box-sizing: border-box;
-    color: #ffffff;
-    overflow: hidden;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 /* Post and Comment Styles */
 .post-title, .comment-title {
-    font-family: "Lilita One", sans-serif;
-    font-size: 2rem;
-    margin-bottom: 1rem;
-    text-align: center;
-    color: lavender;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3); /* Adds a subtle shadow for better readability */
+    font-size: 1.5rem;
+    color: #61dafb;
+    margin: 10px 0;
 }
 
 .post-content, .comment-content {
-    background-color: rgba(251, 251, 251, 0.3);
+    background: #222;
     padding: 15px;
-    border-radius: 15px;
-    margin-bottom: 1rem;
-    color: #ffffff;
-    word-wrap: break-word; /* Ensure long words or URLs wrap correctly */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Adds subtle depth */
+    border-radius: 8px;
+    color: #e0e0e0;
+    line-height: 1.6;
 }
 
 /* Action Links */
 .action-links {
-    text-align: center;
-    margin-top: 1rem;
+    margin-top: 10px;
 }
 
 .action-links a {
-    color: lavender;
-    margin: 0 10px;
+    color: #61dafb;
     text-decoration: none;
-    font-family: "Baskervville SC", serif;
-    font-size: 1.1rem;
-    transition: color 0.3s ease, text-decoration 0.3s ease; /* Smooth transitions */
+    margin-right: 15px;
 }
 
 .action-links a:hover {
-    color: #f0e8ff;
     text-decoration: underline;
 }
 
 /* Comment Box */
 .comment-box {
-    margin-top: 2rem;
+    background: #222;
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 }
 
 .comment-box input, .comment-box textarea {
     width: 100%;
-    padding: 12px;
+    padding: 10px;
+    border: 1px solid #333;
+    border-radius: 5px;
+    background: #333;
+    color: #e0e0e0;
+    font-size: 1rem;
     margin-bottom: 10px;
-    border-radius: 15px;
-    border: 1px solid #aaa;
-    background-color: rgba(251, 251, 251, 0.3);
-    color: #ffffff;
-    font-family: "Baskervville SC", serif;
-    transition: border-color 0.3s ease; /* Smooth border color change */
 }
 
 .comment-box input:focus, .comment-box textarea:focus {
-    border-color: lavender;
+    border-color: #61dafb;
     outline: none;
+    background: #444;
 }
 
 /* Comment Box Button */
 .comment-box button {
-    width: 100%;
-    padding: 12px;
-    border-radius: 15px;
+    background: #61dafb;
+    color: #fff;
     border: none;
-    background-color: rgba(18, 14, 14, 0.7);
-    color: lavender;
-    cursor: pointer;
-    font-family: "Baskervville SC", serif;
+    padding: 10px 20px;
+    border-radius: 5px;
     font-size: 1rem;
-    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth color transitions */
+    cursor: pointer;
 }
 
 .comment-box button:hover {
-    background-color: rgba(18, 14, 14, 0.9);
-    color: #fff;
+    background: #4fa3b6;
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
     .container {
-        padding: 15px;
-        margin: 80px auto 2% auto; /* Ensure margin accommodates fixed header */
+        padding: 10px;
     }
 
     .post-title, .comment-title {
-        font-size: 1.5rem;
+        font-size: 1.2rem;
     }
 
     .comment-box button {
-        font-size: 0.9rem;
+        width: 100%;
+        padding: 12px;
     }
 }

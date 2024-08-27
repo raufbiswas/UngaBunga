@@ -6,10 +6,9 @@
     <link rel="stylesheet" href="./CSS/design.css">
     <title>UngaBunga</title>
 </head>
-<body>
+<body class="index-page">
     <div class="signbox">
         <h1 class="logo">UngaBunga Blog</h1>
-
         <form action="signin.php" method="post">
             <label for="username">Username:</label><br>
             <input class="textbox" type="text" name="username" required><br>

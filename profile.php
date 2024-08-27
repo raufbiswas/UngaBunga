@@ -63,7 +63,7 @@ $postsResult = $postsStmt->get_result();
         <!-- Create New Post Section -->
         <section class="create-post">
             <h2 class="section-title">Create New Post</h2>
-            <a href="create_post.php" class="btn btn-secondary">Create New Post</a>
+            <a href="create_post.php" class="btn btn-secondary">Create Post</a>
         </section>
 
         <!-- Search Posts Section -->
