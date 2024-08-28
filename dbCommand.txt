@@ -19,6 +19,10 @@ CREATE TABLE Posts (
     userID INT NOT NULL,
     title VARCHAR(255) NOT NULL,
     content TEXT NOT NULL,
+    file_path VARCHAR(255) NULL,
+    status ENUM('draft', 'published', 'archived') DEFAULT 'published',
+    view_count INT DEFAULT 0,
+    like_count INT DEFAULT 0,
     created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (userID) REFERENCES users(ID)

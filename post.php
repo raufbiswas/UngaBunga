@@ -52,12 +52,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $catStmt->close();
         }
     }
-
     // Redirect to the home page or display a success message
     header("Location: home.php");
     exit();
 }
 ?>
+<?php
+// Debugging: Print the file path value
+var_dump($post['file_path']);
+?>
+
+<?php if (isset($post['file_path']) && !empty($post['file_path'])): ?>
+    <?php
+    $fileExtension = pathinfo($post['file_path'], PATHINFO_EXTENSION);
+    if (in_array($fileExtension, ['jpg', 'jpeg', 'png', 'gif'])): ?>
+        <img src="<?= htmlspecialchars($post['file_path']) ?>" alt="Post Image" class="post-image">
+    <?php elseif (in_array($fileExtension, ['mp4', 'avi', 'mov'])): ?>
+        <video controls class="post-video">
+            <source src="<?= htmlspecialchars($post['file_path']) ?>" type="video/<?= htmlspecialchars($fileExtension) ?>">
+            Your browser does not support the video tag.
+        </video>
+    <?php else: ?>
+        <p>Unsupported file type: <?= htmlspecialchars($fileExtension) ?></p>
+    <?php endif; ?>
+<?php else: ?>
+    <p>No file uploaded or file path is empty.</p>
+<?php endif; ?>
 
 <!DOCTYPE html>
 <html lang="en">

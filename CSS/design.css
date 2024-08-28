@@ -1,6 +1,14 @@
+/* Importing Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Lilita+One&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Baskervville+SC&family=Nerko+One&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Moderustic:wght@300..800&display=swap');
+
+/* General Styling */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* Ensure padding and border are included in element's width and height */
+}
 
 body {
     font-family: "Moderustic", sans-serif;
@@ -10,8 +18,8 @@ body {
     background-position: center;
     background-color: #282c34;
     color: #ffffff;
-    margin: 0;
-    padding: 0;
+    margin: 10px; /* Default margin for the entire page */
+    padding: 10px; /* Default padding for the entire page */
     height: 100vh;
 }
 
@@ -22,6 +30,7 @@ body.index-page {
     height: 100vh;
 }
 
+/* Sign-In Box */
 .signbox {
     width: 100%;
     max-width: 500px;
@@ -32,6 +41,7 @@ body.index-page {
     text-align: center;
 }
 
+/* Logo */
 .logo {
     font-family: "Lilita One", sans-serif;
     font-weight: 400;
@@ -48,77 +58,322 @@ body.index-page {
     color: #4fa3b6; /* Slight color change on hover */
 }
 
-.textbox {
+/* Input Fields */
+.textbox, .contentbox, .searchbox {
     color: #ffffff;
-    text-align: center;
-    width: 100%;
     background-color: rgba(251, 251, 251, 0.2);
-    padding: 10px;
-    border-style: none;
-    border-radius: 25px;
-    margin: 10px 0;
+    border: none;
+    border-radius: 10px; /* Slightly smaller radius for a subtle curve */
+    width: 100%;
+    max-width: 800px; /* Limit the maximum width for large screens */
+    padding: 10px 15px; /* Padding for more comfortable text input */
+    margin: 10px; /* Centering the input and providing some vertical spacing */
     box-sizing: border-box;
+    font-size: 1rem;
+    font-family: Arial, sans-serif;
+    outline: none;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.btn {
-    font-family: "Baskervville SC", serif;
-    font-weight: 400;
-    font-style: normal;
-    border-radius: 25px;
-    border-style: none;
-    background-color: rgba(18, 14, 14, 0.281);
-    width: 15%;
-    padding: 10px 5px 10px 5px;
-    color: lavender;
-    cursor: pointer;
-    margin: 20px 0;
-    justify-content: center;
-    align-items: center;
+.textbox:focus, .contentbox:focus, .searchbox:focus {
+    background-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5);
 }
 
-.header {
-    display: flex;
-    color: #ffffff;
-    margin: 2rem 1.5rem;
-    width: 100vw;
-    position: relative;
-}
-
-.profileicon {
-    font-size: 1.2rem;
-    color: #ffffff;
-    text-decoration: none;
-    padding: 10px;
-    background-color: #61dafb;
-    border-radius: 15px;
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-.profileicon:hover {
-    background-color: #4fa3b6;
-    color: #282c34;
-}
-.option {
-    font-size: 1.2rem;
-    color: #ffffff;
-    text-decoration: none;
-    padding: 7px 15px;
-    background-color: #899091;
+/* Buttons */
+.btn, .btn-primary, .btn-secondary, .btn-edit, .btn-delete {
+    display: inline-block;
+    padding: 10px 20px;
     border-radius: 5px;
-    text-align: left;
-    margin-right: 2rem;
+    font-size: 1rem;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.btn-primary {
+    background: #61dafb;
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background: #4fa3b6;
+}
+
+.btn-secondary {
+    background: #444;
+    color: #e0e0e0;
+}
+
+.btn-secondary:hover {
+    background: #555;
+}
+
+.btn-edit {
+    background: #ffcc00;
+    color: #333;
+}
+
+.btn-edit:hover {
+    background: #e6b800;
+}
+
+.btn-delete {
+    background: #e60000;
+    color: #fff;
+}
+
+.btn-delete:hover {
+    background: #cc0000;
+}
+
+/* Profile Header */
+.profile-header {
+    background: #282c34;
+    padding: 20px;
+    text-align: center;
+    border-bottom: 1px solid #333;
+}
+
+.profile-link, .logout-link {
+    display: inline-block;
+    margin: 0 15px;
+}
+
+.profile-link a, .logout-link a {
+    color: #e0e0e0;
+    text-decoration: none;
+    font-size: 1.1rem;
+}
+
+.profile-link a:hover, .logout-link a:hover {
+    color: #61dafb;
+}
+
+/* Container */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Section Titles */
+.section-title {
+    font-size: 1.8rem;
+    color: #61dafb;
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+/* Profile Update Section */
+.profile-update {
+    background: #222;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    margin-bottom: 2rem;
+}
+
+.profile-update p {
+    margin: 0 0 10px;
+}
+
+/* Create and Search Sections */
+.create-search {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.create-search .section-title {
+    font-size: 1.5rem;
+    color: #61dafb;
+}
+
+/* User Posts Section */
+.user-posts {
+    margin-top: 20px;
+}
+
+/* Post Container */
+.post {
+    background: #222;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px; /* Margin below each post for spacing */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    width: calc(100% - 20px); /* Adjusting width to fit within container padding */
+    max-width: 800px; /* Limit the maximum width for large screens */
+    margin: auto;
+}
+
+/* Post Title */
+.post h2 {
+    font-size: 1.6rem;
+    color: #61dafb;
+    margin-bottom: 10px;
+}
+
+/* Post Content */
+.post p {
+    color: #e0e0e0;
+    line-height: 1.6;
+}
+
+/* Post Meta Information */
+.post-meta {
+    font-size: 0.9rem;
+    color: #999;
+    margin-top: 10px;
+}
+
+.post-meta a {
+    color: #61dafb;
+    text-decoration: none;
+}
+
+.post-meta a:hover {
+    text-decoration: underline;
+}
+
+/* Comment Section */
+.comments {
+    margin-top: 20px;
+}
+
+.comments h3 {
+    font-size: 1.4rem;
+    color: #61dafb;
+    margin-bottom: 15px;
+}
+
+/* Individual Comment */
+.comment {
+    background: #222;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.comment p {
+    color: #e0e0e0;
+    line-height: 1.6;
+}
+
+.comment-meta {
+    font-size: 0.9rem;
+    color: #999;
+}
+
+/* Comment Form */
+form {
+    margin-top: 20px;
+}
+
+textarea.textbox {
+    width: 100%;
+    margin: 0;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: rgba(251, 251, 251, 0.2);
+    color: #ffffff;
+    resize: vertical; /* Allows vertical resizing */
+}
+
+textarea.textbox:focus {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+button.btn {
+    background: #61dafb;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background 0.3s ease;
+}
+
+button.btn:hover {
+    background: #4fa3b6;
+}
+
+/* Post Media */
+.post-media {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 10px 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+
+    .post-title, .comment-title {
+        font-size: 1.2rem;
+    }
+
+    .comment-box button {
+        width: 100%;
+        padding: 12px;
+    }
+}
+
+/* Dark Mode */
+body.dark-mode {
+    background-color: #181a1b;
+    color: #e0e0e0;
+}
+
+body.dark-mode .post {
+    background-color: #333;
+}
+
+body.dark-mode .post-meta {
+    color: #bbb;
+}
+
+body.dark-mode .comment {
+    background-color: #444;
+}
+
+body.dark-mode .comment-meta {
+    color: #bbb;
+}
+
+body.dark-mode .btn-primary {
+    background-color: #4fa3b6;
+}
+
+body.dark-mode .btn-primary:hover {
+    background-color: #3792c8;
+}
+
+body.dark-mode .btn-secondary {
+    background-color: #555;
+}
+
+body.dark-mode .btn-secondary:hover {
+    background-color: #666;
 }
 
 .main {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 98vw;
+    width: 100%;
     padding: 10px 0px;
     box-sizing: border-box;
     background-color: #282c34;
 }
-
+/* Search Box */
 .searchbox {
     color: #ffffff;
     text-align: center;
@@ -143,4 +398,40 @@ body.index-page {
     color: lavender;
     cursor: pointer;
     margin: 20px 0;
+}
+/* Header */
+.header {
+    display: flex;
+    color: #ffffff;
+    margin: 2rem 1.5rem;
+    width: 100vw;
+    position: relative;
+}
+
+/* Profile Icon */
+.profileicon {
+    font-size: 1.2rem;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 10px;
+    background-color: #61dafb;
+    border-radius: 15px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.profileicon:hover {
+    background-color: #4fa3b6;
+    color: #282c34;
+}
+
+/* Options */
+.option {
+    font-size: 1.2rem;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 7px 15px;
+    background-color: #899091;
+    border-radius: 5px;
+    text-align: left;
+    margin-right: 2rem;
 }

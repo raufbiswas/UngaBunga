@@ -7,6 +7,7 @@
     <title>UngaBunga</title>
 </head>
 <body class="index-page">
+    <div class="container">
     <div class="signbox">
         <h1 class="logo">UngaBunga Blog</h1>
         <form action="signin.php" method="post">
@@ -28,6 +29,7 @@
             <button class="btn">Sign In</button><br><br>
             <a style="color: lavender;" href="signup.php">Don't have an account? Sign Up!</a>
         </form>
+    </div>
     </div>
 </body>
 </html>

@@ -1,0 +1,11 @@
+Tagging/Categories (Optional):
+
+	•	If you want to support tagging or categorizing posts, consider adding a many-to-many relationship between Posts and Categories through a junction table, which you seem to have already.
+
+Post Status (Optional):
+
+	•	You might want to add a status column if posts can be drafts, published, or archived.
+
+Extended Metadata (Optional):
+
+	•	If you need additional metadata, such as a view count or like count, you can add these columns.

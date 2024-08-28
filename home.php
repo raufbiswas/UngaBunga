@@ -2,8 +2,8 @@
 session_start();
 include 'dbconnect.php';
 
-$userID = $_SESSION['userID'];
-$username = $_SESSION['username'];
+$userID = isset($_SESSION['userID']) ? $_SESSION['userID'] : null;
+$username = isset($_SESSION['username']) ? $_SESSION['username'] : 'Guest';
 
 // Handle searching for posts by a specific user
 $searchUsername = isset($_GET['search_user']) ? $_GET['search_user'] : '';
@@ -17,7 +17,6 @@ if ($searchUsername) {
 }
 $stmt->execute();
 $result = $stmt->get_result();
-
 ?>
 
 <!DOCTYPE html>
@@ -26,26 +25,39 @@ $result = $stmt->get_result();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./CSS/design.css">
-    <link rel="stylesheet" href="./CSS/enhanced.css">
     <title>Home - UngaBunga</title>
 </head>
 <body>
-    <!-- User Profile Link in the Right Upper Corner -->
-    <div class="profile-link">
-        <a href="profile.php?username=<?= htmlspecialchars($username) ?>">
-            <?= htmlspecialchars($username) ?>'s Profile
-        </a>
-    </div>
-
     <div class="container">
-        <h1 class="logo">UngaBunga Blog</h1>
+        <div class="main">
+            <span>
+                <a href="home.php" class="logo">UngaBunga Blog</a>
+            </span>
+            <span>
+                <a href="profile.php?username=<?= htmlspecialchars($username) ?>" class="profileicon">Hi, <?= htmlspecialchars($username) ?>!</a>
+            </span>
+        </div>
 
-        <!-- Search for blogs by a specific user -->
-        <form action="home.php" method="get">
-            <label for="search_user">Search Blogs by User:</label><br>
-            <input class="textbox" type="text" name="search_user" value="<?= htmlspecialchars($searchUsername) ?>"><br>
-            <button class="btn" type="submit">Search</button>
-        </form>
+        <div class="header">
+            <div>
+                <a href="home.php" class="option">All Blogs</a>
+            </div>
+            <div>
+                <a href="friendsblog.php" class="option">Friends Blogs</a>
+            </div>
+            <div>
+                <a href="createPost.php" class="option">Create Post</a>
+            </div>            
+        </div>
+
+        <!-- Search Form -->
+        <div class="search-form">
+            <form action="home.php" method="get">
+                <label for="search_user" style="margin-left: 1.5rem;">Search Blogs by User:</label>
+                <input class="searchbox" type="text" name="search_user" value="<?= htmlspecialchars($searchUsername) ?>">
+                <button class="searchbtn" type="submit">Search</button>
+            </form>
+        </div>
 
         <!-- Display all posts -->
         <?php while ($row = $result->fetch_assoc()): ?>

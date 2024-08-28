@@ -6,7 +6,8 @@
     <link rel="stylesheet" href="./CSS/design.css">
     <title>Sign Up - UngaBunga</title>
 </head>
-<body>
+<body class="index-page">
+<div class="container">
 <div class="signbox">
 <?php
 include("dbconnect.php");
@@ -64,6 +65,7 @@ if (isset($_POST['submit'])) {
         <input class="textbox" type="password" name="password" required><br>
         <button class="btn" name="submit" type="submit">Sign Up</button><br><br>
     </form>
+</div>
 </div>
 </body>
 </html>
