@@ -5,7 +5,7 @@ include 'dbconnect.php';
 $username = $_POST['username'];
 $password = $_POST['password'];
 
-// Prepare a statement to get both userID and password
+// Prepare a statement to get both userID and hashed password
 $stmt = $conn->prepare("SELECT id, password FROM users WHERE username = ?");
 $stmt->bind_param("s", $username);
 $stmt->execute();
@@ -16,16 +16,16 @@ if ($stmt->num_rows > 0) {
     $stmt->fetch();
 
     if (password_verify($password, $hashed_password)) {
-        $_SESSION['userID'] = $userID;
+        $_SESSION['user_id'] = $userID; // Corrected session variable name
         $_SESSION['username'] = $username;
         header('Location: home.php');
         exit();
     } else {
-        header('Location: index.php?error=1');
+        header('Location: index.php?error=1'); // General error message
         exit();
     }
 } else {
-    header('Location: index.php?error=1');
+    header('Location: index.php?error=1'); // General error message
     exit();
 }
 

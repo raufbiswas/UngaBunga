@@ -54,7 +54,7 @@ if (isset($_POST['submit'])) {
         <label for="lname">Last Name:</label><br>
         <input class="textbox" type="text" name="lname" required><br>
         <label for="dob">Date of Birth:</label><br>
-        <input class="textbox" style="color: #ffffff" type="date" id="dob" name="dob" required><br>
+        <input class="textbox" type="date" id="dob" name="dob" required><br>
         <label for="email">Email:</label><br>
         <input class="textbox" type="email" name="email" placeholder="abc@ungabunga.me" required><br>
         <label for="phone">Phone Number:</label>

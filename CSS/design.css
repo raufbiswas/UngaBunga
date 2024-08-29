@@ -7,19 +7,15 @@
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box; /* Ensure padding and border are included in element's width and height */
+    box-sizing: border-box;
 }
 
 body {
     font-family: "Moderustic", sans-serif;
-    font-optical-sizing: auto;
-    font-style: normal;
-    background-size: cover;
-    background-position: center;
-    background-color: #282c34;
-    color: #ffffff;
-    margin: 10px; /* Default margin for the entire page */
-    padding: 10px; /* Default padding for the entire page */
+    background-color: #f5f5f5;
+    color: #333333;
+    margin: 10px;
+    padding: 10px;
     height: 100vh;
 }
 
@@ -34,10 +30,10 @@ body.index-page {
 .signbox {
     width: 100%;
     max-width: 500px;
-    background-color: rgba(60, 57, 57, 0.5);
+    background-color: #ffffff;
     padding: 50px;
     border-radius: 25px;
-    box-sizing: border-box;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
 }
 
@@ -46,7 +42,7 @@ body.index-page {
     font-family: "Lilita One", sans-serif;
     font-weight: 400;
     font-size: 3.2rem;
-    color: #61dafb; /* Light blue for a standout look */
+    color: #007bff;
     text-decoration: none;
     text-align: left;
     margin-left: 1.5rem;
@@ -55,29 +51,28 @@ body.index-page {
 }
 
 .logo:hover {
-    color: #4fa3b6; /* Slight color change on hover */
+    color: #0056b3;
 }
 
 /* Input Fields */
 .textbox, .contentbox, .searchbox {
-    color: #ffffff;
-    background-color: rgba(251, 251, 251, 0.2);
-    border: none;
-    border-radius: 10px; /* Slightly smaller radius for a subtle curve */
+    color: #333333;
+    background-color: #ffffff;
+    border: 1px solid #cccccc;
+    border-radius: 10px;
     width: 100%;
-    max-width: 800px; /* Limit the maximum width for large screens */
-    padding: 10px 15px; /* Padding for more comfortable text input */
-    margin: 10px; /* Centering the input and providing some vertical spacing */
+    max-width: 800px;
+    padding: 10px 15px;
+    margin: 10px;
     box-sizing: border-box;
     font-size: 1rem;
-    font-family: Arial, sans-serif;
     outline: none;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .textbox:focus, .contentbox:focus, .searchbox:focus {
-    background-color: rgba(255, 255, 255, 0.3);
-    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5);
+    border-color: #007bff;
+    box-shadow: 0px 0px 10px rgba(0, 123, 255, 0.2);
 }
 
 /* Buttons */
@@ -89,50 +84,53 @@ body.index-page {
     text-align: center;
     text-decoration: none;
     cursor: pointer;
+    border: none;
 }
 
 .btn-primary {
-    background: #61dafb;
-    color: #fff;
+    background: #007bff;
+    color: #ffffff;
 }
 
 .btn-primary:hover {
-    background: #4fa3b6;
+    background: #0056b3;
 }
 
 .btn-secondary {
-    background: #444;
-    color: #e0e0e0;
+    background: #6c757d;
+    color: #ffffff;
+    padding: 7px 15px;
+    margin-right: 2rem;
 }
 
 .btn-secondary:hover {
-    background: #555;
+    background: #5a6268;
 }
 
 .btn-edit {
-    background: #ffcc00;
-    color: #333;
+    background: #ffc107;
+    color: #333333;
 }
 
 .btn-edit:hover {
-    background: #e6b800;
+    background: #e0a800;
 }
 
 .btn-delete {
-    background: #e60000;
-    color: #fff;
+    background: #dc3545;
+    color: #ffffff;
 }
 
 .btn-delete:hover {
-    background: #cc0000;
+    background: #c82333;
 }
 
 /* Profile Header */
 .profile-header {
-    background: #282c34;
+    background: #f8f9fa;
     padding: 20px;
     text-align: center;
-    border-bottom: 1px solid #333;
+    border-bottom: 1px solid #e0e0e0;
 }
 
 .profile-link, .logout-link {
@@ -141,13 +139,13 @@ body.index-page {
 }
 
 .profile-link a, .logout-link a {
-    color: #e0e0e0;
+    color: #007bff;
     text-decoration: none;
     font-size: 1.1rem;
 }
 
 .profile-link a:hover, .logout-link a:hover {
-    color: #61dafb;
+    color: #0056b3;
 }
 
 /* Container */
@@ -160,22 +158,22 @@ body.index-page {
 /* Section Titles */
 .section-title {
     font-size: 1.8rem;
-    color: #61dafb;
+    color: #007bff;
     border-bottom: 2px solid #007bff;
     padding-bottom: 0.5rem;
     margin-bottom: 1rem;
 }
 
 /* Profile Update Section */
-.profile-update {
-    background: #222;
+.profileinfo {
+    background: #ffffff;
     padding: 20px;
     border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     margin-bottom: 2rem;
 }
 
-.profile-update p {
+.profileinfo p {
     margin: 0 0 10px;
 }
 
@@ -189,7 +187,7 @@ body.index-page {
 
 .create-search .section-title {
     font-size: 1.5rem;
-    color: #61dafb;
+    color: #007bff;
 }
 
 /* User Posts Section */
@@ -199,38 +197,37 @@ body.index-page {
 
 /* Post Container */
 .post {
-    background: #222;
+    background: #ffffff;
     border-radius: 8px;
     padding: 20px;
-    margin-bottom: 20px; /* Margin below each post for spacing */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-    width: calc(100% - 20px); /* Adjusting width to fit within container padding */
-    max-width: 800px; /* Limit the maximum width for large screens */
+    margin-bottom: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
     margin: auto;
 }
 
 /* Post Title */
 .post h2 {
     font-size: 1.6rem;
-    color: #61dafb;
+    color: #007bff;
     margin-bottom: 10px;
 }
 
 /* Post Content */
 .post p {
-    color: #e0e0e0;
+    color: #333333;
     line-height: 1.6;
 }
 
 /* Post Meta Information */
 .post-meta {
     font-size: 0.9rem;
-    color: #999;
+    color: #666666;
     margin-top: 10px;
 }
 
 .post-meta a {
-    color: #61dafb;
+    color: #007bff;
     text-decoration: none;
 }
 
@@ -245,26 +242,26 @@ body.index-page {
 
 .comments h3 {
     font-size: 1.4rem;
-    color: #61dafb;
+    color: #007bff;
     margin-bottom: 15px;
 }
 
 /* Individual Comment */
 .comment {
-    background: #222;
+    background: #f8f9fa;
     padding: 10px;
     border-radius: 8px;
     margin-bottom: 10px;
 }
 
 .comment p {
-    color: #e0e0e0;
+    color: #333333;
     line-height: 1.6;
 }
 
 .comment-meta {
     font-size: 0.9rem;
-    color: #999;
+    color: #666666;
 }
 
 /* Comment Form */
@@ -276,30 +273,30 @@ textarea.textbox {
     width: 100%;
     margin: 0;
     padding: 10px;
-    border: none;
+    border: 1px solid #cccccc;
     border-radius: 5px;
-    background-color: rgba(251, 251, 251, 0.2);
-    color: #ffffff;
-    resize: vertical; /* Allows vertical resizing */
+    background-color: #ffffff;
+    color: #333333;
+    resize: vertical;
 }
 
 textarea.textbox:focus {
-    background-color: rgba(255, 255, 255, 0.3);
+    border-color: #007bff;
+    background-color: #ffffff;
 }
 
 button.btn {
-    background: #61dafb;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
+    background: #007bff;
+    color: #ffffff;
     padding: 10px 15px;
+    border-radius: 5px;
     cursor: pointer;
     margin-top: 10px;
     transition: background 0.3s ease;
 }
 
 button.btn:hover {
-    background: #4fa3b6;
+    background: #0056b3;
 }
 
 /* Post Media */
@@ -326,83 +323,10 @@ button.btn:hover {
     }
 }
 
-/* Dark Mode */
-body.dark-mode {
-    background-color: #181a1b;
-    color: #e0e0e0;
-}
-
-body.dark-mode .post {
-    background-color: #333;
-}
-
-body.dark-mode .post-meta {
-    color: #bbb;
-}
-
-body.dark-mode .comment {
-    background-color: #444;
-}
-
-body.dark-mode .comment-meta {
-    color: #bbb;
-}
-
-body.dark-mode .btn-primary {
-    background-color: #4fa3b6;
-}
-
-body.dark-mode .btn-primary:hover {
-    background-color: #3792c8;
-}
-
-body.dark-mode .btn-secondary {
-    background-color: #555;
-}
-
-body.dark-mode .btn-secondary:hover {
-    background-color: #666;
-}
-
-.main {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    padding: 10px 0px;
-    box-sizing: border-box;
-    background-color: #282c34;
-}
-/* Search Box */
-.searchbox {
-    color: #ffffff;
-    text-align: center;
-    width: 15%;
-    background-color: rgba(251, 251, 251, 0.2);
-    padding: 10px;
-    border-style: none;
-    border-radius: 25px;
-    margin: 10px 10px;
-    box-sizing: border-box;
-}
-
-.searchbtn {
-    font-family: "Moderustic", sans-serif;
-    font-optical-sizing: auto;
-    font-style: normal;
-    border-radius: 25px;
-    border-style: none;
-    background-color: rgba(18, 14, 14, 0.281);
-    width: 10%;
-    padding: 10px;
-    color: lavender;
-    cursor: pointer;
-    margin: 20px 0;
-}
 /* Header */
 .header {
     display: flex;
-    color: #ffffff;
+    color: #333333;
     margin: 2rem 1.5rem;
     width: 100vw;
     position: relative;
@@ -414,24 +338,20 @@ body.dark-mode .btn-secondary:hover {
     color: #ffffff;
     text-decoration: none;
     padding: 10px;
-    background-color: #61dafb;
+    background-color: #007bff;
     border-radius: 15px;
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .profileicon:hover {
-    background-color: #4fa3b6;
-    color: #282c34;
-}
-
-/* Options */
-.option {
-    font-size: 1.2rem;
+    background-color: #0056b3;
     color: #ffffff;
-    text-decoration: none;
-    padding: 7px 15px;
-    background-color: #899091;
-    border-radius: 5px;
-    text-align: left;
-    margin-right: 2rem;
+}
+.main {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 10px 0px;
+    box-sizing: border-box;
 }

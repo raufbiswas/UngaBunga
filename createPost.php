@@ -79,6 +79,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <a href="profile.php" class="profileicon">Hi, raufbiswas!</a>
             </span>
         </div>
+
+        <div class="header">
+            <a href="home.php" class="btn-secondary">Home</a>
+            <a href="logout.php" class="btn-secondary">Log Out</a>
+        </div>
+        
         <div class="post">
             <form action="createPost.php" method="post" enctype="multipart/form-data">
                 <label for="title">Title:</label><br>
@@ -90,6 +96,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <!-- Single File Upload Input -->
                 <label for="fileUpload">Upload File:</label><br>
                 <input type="file" name="fileUpload"><br><br>
+
+                                <!-- Post Status Selection -->
+                                <label for="status">Post Status:</label><br>
+                <select name="status">
+                    <option value="draft">Draft</option>
+                    <option value="published">Published</option>
+                    <option value="archived">Archived</option>
+                </select><br><br>
 
                 <!-- Emoji Picker -->
                 <emoji-picker id="emoji-picker"></emoji-picker><br>

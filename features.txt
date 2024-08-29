@@ -9,3 +9,5 @@ Post Status (Optional):
 Extended Metadata (Optional):
 
 	•	If you need additional metadata, such as a view count or like count, you can add these columns.
+
+followers.php, updateproile.php

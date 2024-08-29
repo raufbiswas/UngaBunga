@@ -11,7 +11,8 @@ CREATE TABLE users (
     first_name VARCHAR(50) NOT NULL,
     last_name VARCHAR(50) NOT NULL,
     date_of_birth DATE NOT NULL,
-    total_post INT
+    total_post INT,
+    followers INT
 );
 
 CREATE TABLE Posts (
@@ -21,7 +22,6 @@ CREATE TABLE Posts (
     content TEXT NOT NULL,
     file_path VARCHAR(255) NULL,
     status ENUM('draft', 'published', 'archived') DEFAULT 'published',
-    view_count INT DEFAULT 0,
     like_count INT DEFAULT 0,
     created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,

@@ -27,7 +27,7 @@
                 }
             ?>
             <button class="btn">Sign In</button><br><br>
-            <a style="color: lavender;" href="signup.php">Don't have an account? Sign Up!</a>
+            <p>Don't have an account? <a style="text-decoration: none; color:black" href="signup.php"><b>Sign Up!</b></a></p>
         </form>
     </div>
     </div>

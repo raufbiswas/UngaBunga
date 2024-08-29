@@ -39,15 +39,10 @@ $result = $stmt->get_result();
         </div>
 
         <div class="header">
-            <div>
-                <a href="home.php" class="option">All Blogs</a>
-            </div>
-            <div>
-                <a href="friendsblog.php" class="option">Friends Blogs</a>
-            </div>
-            <div>
-                <a href="createPost.php" class="option">Create Post</a>
-            </div>            
+            <a href="home.php" class="btn-secondary">All Blogs</a>
+            <a href="friendsblog.php" class="btn-secondary">Friends Blogs</a>
+            <a href="createPost.php" class="btn-secondary">Create Post</a>
+            <a href="logout.php" class="btn-secondary">Log Out</a>          
         </div>
 
         <!-- Search Form -->
@@ -55,7 +50,7 @@ $result = $stmt->get_result();
             <form action="home.php" method="get">
                 <label for="search_user" style="margin-left: 1.5rem;">Search Blogs by User:</label>
                 <input class="searchbox" type="text" name="search_user" value="<?= htmlspecialchars($searchUsername) ?>">
-                <button class="searchbtn" type="submit">Search</button>
+                <button class="btn-primary" type="submit">Search</button>
             </form>
         </div>
 
