@@ -2,21 +2,26 @@
 session_start();
 include 'dbconnect.php';
 
-$userID = isset($_SESSION['userID']) ? $_SESSION['userID'] : null;
-$username = isset($_SESSION['username']) ? $_SESSION['username'] : 'Guest';
+// Enable error reporting
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
-// Handle searching for posts by a specific user
-$searchUsername = isset($_GET['search_user']) ? $_GET['search_user'] : '';
-
-// Fetch all posts, optionally filtered by the searched username
-if ($searchUsername) {
-    $stmt = $conn->prepare("SELECT p.id, p.title, p.content, p.created, u.username FROM Posts p JOIN users u ON p.userID = u.id WHERE u.username = ? ORDER BY p.created DESC");
-    $stmt->bind_param("s", $searchUsername);
-} else {
-    $stmt = $conn->prepare("SELECT p.id, p.title, p.content, p.created, u.username FROM Posts p JOIN users u ON p.userID = u.id ORDER BY p.created DESC");
+// Ensure user is logged in
+if (!isset($_SESSION['user_id'])) {
+    header('Location: index.php');
+    exit();
 }
-$stmt->execute();
-$result = $stmt->get_result();
+
+// Get the logged-in user's ID
+$userID = $_SESSION['user_id'];
+
+// Fetch posts from the database
+$query = "SELECT p.id, p.title, p.content, p.created, p.updated, u.username, u.id as userID 
+          FROM Posts p 
+          JOIN users u ON p.userID = u.id 
+          ORDER BY p.created DESC";
+$result = $conn->query($query);
 ?>
 
 <!DOCTYPE html>
@@ -34,68 +39,67 @@ $result = $stmt->get_result();
                 <a href="home.php" class="logo">UngaBunga Blog</a>
             </span>
             <span>
-                <a href="profile.php?username=<?= htmlspecialchars($username) ?>" class="profileicon">Hi, <?= htmlspecialchars($username) ?>!</a>
+                <a href="profile.php" class="profileicon">Hi, <?= htmlspecialchars($_SESSION['username']) ?>!</a>
             </span>
         </div>
 
         <div class="header">
-            <a href="home.php" class="btn-secondary">All Blogs</a>
-            <a href="friendsblog.php" class="btn-secondary">Friends Blogs</a>
-            <a href="createPost.php" class="btn-secondary">Create Post</a>
-            <a href="logout.php" class="btn-secondary">Log Out</a>          
+            <a href="profile.php" class="btn-secondary">Profile</a>
+            <a href="createpost.php" class="btn-secondary"> Create Post</a>
+            <a href="logout.php" class="btn-secondary">Log Out</a>
         </div>
 
-        <!-- Search Form -->
-        <div class="search-form">
-            <form action="home.php" method="get">
-                <label for="search_user" style="margin-left: 1.5rem;">Search Blogs by User:</label>
-                <input class="searchbox" type="text" name="search_user" value="<?= htmlspecialchars($searchUsername) ?>">
-                <button class="btn-primary" type="submit">Search</button>
-            </form>
-        </div>
+        <?php if ($result->num_rows > 0): ?>
+            <?php while ($row = $result->fetch_assoc()): ?>
+                <div class="post">
+                    <h2><?= htmlspecialchars($row['title']) ?></h2>
+                    <p><?= htmlspecialchars($row['content']) ?></p>
+                    <p>Posted by 
+                        <a href="profile.php?userID=<?= htmlspecialchars($row['userID']) ?>">
+                            <?= htmlspecialchars($row['username']) ?>
+                        </a>
+                        on <?= htmlspecialchars($row['created']) ?>
+                    </p>
 
-        <!-- Display all posts -->
-        <?php while ($row = $result->fetch_assoc()): ?>
-            <div class="post">
-                <h2><?= htmlspecialchars($row['title']) ?></h2>
-                <p><?= htmlspecialchars($row['content']) ?></p>
-                <p class="post-meta">Posted by <a href="profile.php?username=<?= htmlspecialchars($row['username']) ?>"><?= htmlspecialchars($row['username']) ?></a> on <?= htmlspecialchars($row['created']) ?></p>
-                
-                <?php if ($userID == $row['userID']): ?>
-                    <a href="editpost.php?post_id=<?= $row['id'] ?>" class="btn">Edit</a>
-                    <a href="deletepost.php?post_id=<?= $row['id'] ?>" class="btn">Delete</a>
-                <?php endif; ?>
-
-                <!-- Comment section -->
-                <div class="comments">
-                    <h3>Comments</h3>
-                    <?php
-                    $commentStmt = $conn->prepare("SELECT c.commentText, u.username, c.created FROM comments c JOIN users u ON c.userID = u.id WHERE c.postID = ? ORDER BY c.created ASC");
-                    $commentStmt->bind_param("i", $row['id']);
-                    $commentStmt->execute();
-                    $commentResult = $commentStmt->get_result();
-                    while ($commentRow = $commentResult->fetch_assoc()):
-                    ?>
-                        <div class="comment">
-                            <p><strong><?= htmlspecialchars($commentRow['username']) ?>:</strong> <?= htmlspecialchars($commentRow['commentText']) ?></p>
-                            <p class="comment-meta"><?= htmlspecialchars($commentRow['created']) ?></p>
-                        </div>
-                    <?php endwhile; ?>
-
-                    <!-- Add a comment -->
+                    <!-- Comment form -->
                     <form action="addcomment.php" method="post">
                         <textarea class="textbox" name="commentText" placeholder="Add a comment..." required></textarea><br>
-                        <input type="hidden" name="postID" value="<?= $row['id'] ?>">
+                        <input type="hidden" name="postID" value="<?= htmlspecialchars($row['id']) ?>">
                         <button class="btn" type="submit">Post Comment</button>
                     </form>
+
+                    <!-- Display comments -->
+                    <?php
+                    $postID = $row['id'];
+                    $commentQuery = $conn->prepare("SELECT c.id, c.commentText, c.created, u.username 
+                                                    FROM comments c 
+                                                    JOIN users u ON c.userID = u.id 
+                                                    WHERE c.postID = ? 
+                                                    ORDER BY c.created ASC");
+                    $commentQuery->bind_param("i", $postID);
+                    $commentQuery->execute();
+                    $comments = $commentQuery->get_result();
+                    ?>
+                    <?php if ($comments->num_rows > 0): ?>
+                        <div class="comments">
+                            <?php while ($comment = $comments->fetch_assoc()): ?>
+                                <div class="comment">
+                                    <p><strong><?= htmlspecialchars($comment['username']) ?>:</strong> <?= htmlspecialchars($comment['commentText']) ?></p>
+                                    <p>Posted on <?= htmlspecialchars($comment['created']) ?></p>
+                                </div>
+                            <?php endwhile; ?>
+                        </div>
+                    <?php endif; ?>
                 </div>
-            </div>
-        <?php endwhile; ?>
+            <?php endwhile; ?>
+        <?php else: ?>
+            <p>No posts available.</p>
+        <?php endif; ?>
     </div>
 </body>
 </html>
 
 <?php
-$stmt->close();
+// Close the database connection
 $conn->close();
 ?>

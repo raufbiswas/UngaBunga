@@ -2,10 +2,31 @@
 session_start();
 include 'dbconnect.php';
 
+// Enable error reporting
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+// Check if the user is logged in
+if (!isset($_SESSION['user_id'])) {
+    header('Location: index.php');
+    exit();
+}
+
+// Handle form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $title = $_POST['title'];
-    $content = $_POST['content'];
-    $userID = $_SESSION['user_id'];  // Assuming the user's ID is stored in the session
+    $title = isset($_POST['title']) ? trim($_POST['title']) : '';
+    $content = isset($_POST['content']) ? trim($_POST['content']) : '';
+    $userID = $_SESSION['user_id'];
+
+    // Debugging output
+    if (empty($title) || empty($content)) {
+        die('Title or content cannot be empty.');
+    }
+
+    echo "Title: " . htmlspecialchars($title) . "<br>";
+    echo "Content: " . htmlspecialchars($content) . "<br>";
+    echo "User ID: " . htmlspecialchars($userID) . "<br>";
 
     // Insert post into the database
     $stmt = $conn->prepare("INSERT INTO Posts (userID, title, content) VALUES (?, ?, ?)");
@@ -20,8 +41,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $stmt->close();
 
+    // Update total_post count in the users table
+    $stmt = $conn->prepare("UPDATE users SET total_post = total_post + 1 WHERE id = ?");
+    if ($stmt === false) {
+        die('Prepare failed: ' . htmlspecialchars($conn->error));
+    }
+    
+    $stmt->bind_param("i", $userID);
+    if (!$stmt->execute()) {
+        die('Execute failed: ' . htmlspecialchars($stmt->error));
+    }
+
+    $stmt->close();
+
     // Redirect to the home page after successful submission
-    header("Location: home.php");
+    header("Location: profile.php");
     exit();
 }
 ?>
@@ -41,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <a href="home.php" class="logo">UngaBunga Blog</a>
             </span>
             <span>
-                <a href="profile.php" class="profileicon">Hi, raufbiswas!</a>
+                <a href="profile.php" class="profileicon">Hi, <?= htmlspecialchars($_SESSION['username']) ?>!</a>
             </span>
         </div>
 
