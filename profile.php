@@ -93,16 +93,20 @@ $stmt->close();
         <!-- Displaying Posts -->
         <section style="margin-bottom: 2rem">
             <h2 class="section-title">My Posts</h2>
-            <?php while ($post = $postsResult->fetch_assoc()): ?>
-                <br><div class="post">
-                    <h2>Title: <?= htmlspecialchars($post['title']) ?></h2>
-                    <p>Content: <?= htmlspecialchars(substr($post['content'], 0, 100)) ?>...</p>
-                    <p>Created: <?= htmlspecialchars($post['created']) ?> | Updated: <?= htmlspecialchars($post['updated']) ?></p>
-                    <a href="editpost.php?post_id=<?= $post['id'] ?>" class="btn">Edit</a>
-                    <a href="deletepost.php?post_id=<?= $post['id'] ?>" class="btn">Delete</a>
-                </div><br>
-                <hr>
-            <?php endwhile; ?>
+            <?php if ($postsResult->num_rows > 0): ?>
+                <?php while ($post = $postsResult->fetch_assoc()): ?>
+                    <div class="post">
+                        <h3>Title: <?= htmlspecialchars($post['title']) ?></h3>
+                        <p>Content: <?= htmlspecialchars(substr($post['content'], 0, 100)) ?>...</p>
+                        <p>Created: <?= htmlspecialchars($post['created']) ?> | Updated: <?= htmlspecialchars($post['updated']) ?></p>
+                        <a href="editpost.php?post_id=<?= $post['id'] ?>" class="btn btn-primary">Edit</a>
+                        <a href="deletepost.php?post_id=<?= $post['id'] ?>" class="btn btn-danger">Delete</a>
+                    </div>
+                    <hr>
+                <?php endwhile; ?>
+            <?php else: ?>
+                <p>No posts found.</p>
+            <?php endif; ?>
         </section>
         
     </div>

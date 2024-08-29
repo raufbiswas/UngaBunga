@@ -1,59 +1,26 @@
 <?php
-// Start session and include database connection
 session_start();
-require 'dbconnect.php';
+include 'dbconnect.php';
 
-// Check if the form was submitted
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Get the form data
     $title = $_POST['title'];
     $content = $_POST['content'];
-    $userID = $_SESSION['userID'];  // Assuming the user's ID is stored in the session
-
-    // Initialize file upload variables
-    $filePath = null;
-
-    // Handle file upload
-    if (isset($_FILES['fileUpload']) && $_FILES['fileUpload']['error'] === UPLOAD_ERR_OK) {
-        $fileTmpPath = $_FILES['fileUpload']['tmp_name'];
-        $fileName = $_FILES['fileUpload']['name'];
-        $fileSize = $_FILES['fileUpload']['size'];
-        $fileType = $_FILES['fileUpload']['type'];
-
-        // Define upload directory
-        $uploadDir = 'uploads/';
-
-        // Ensure the upload directory exists, if not create it
-        if (!file_exists($uploadDir)) {
-            mkdir($uploadDir, 0777, true);
-        }
-
-        // Create a unique file name to avoid overwriting
-        $uniqueFileName = time() . '-' . $fileName;
-        $filePath = $uploadDir . $uniqueFileName;
-
-        // Move the uploaded file to the upload directory
-        move_uploaded_file($fileTmpPath, $filePath);
-    }
+    $userID = $_SESSION['user_id'];  // Assuming the user's ID is stored in the session
 
     // Insert post into the database
-    $stmt = $conn->prepare("INSERT INTO Posts (userID, title, content, file_path) VALUES (?, ?, ?, ?)");
-    $stmt->bind_param("isss", $userID, $title, $content, $filePath);
-    $stmt->execute();
-    $postID = $stmt->insert_id;
-    $stmt->close();
-
-    // Handle categories if applicable
-    if (isset($_POST['categories'])) {
-        foreach ($_POST['categories'] as $categoryID) {
-            $catStmt = $conn->prepare("INSERT INTO post_categories (post_id, category_id) VALUES (?, ?)");
-            $catStmt->bind_param("ii", $postID, $categoryID);
-            $catStmt->execute();
-            $catStmt->close();
-        }
+    $stmt = $conn->prepare("INSERT INTO Posts (userID, title, content) VALUES (?, ?, ?)");
+    if ($stmt === false) {
+        die('Prepare failed: ' . htmlspecialchars($conn->error));
+    }
+    
+    $stmt->bind_param("iss", $userID, $title, $content);
+    if (!$stmt->execute()) {
+        die('Execute failed: ' . htmlspecialchars($stmt->error));
     }
 
-    // Redirect to the home page or display a success message
+    $stmt->close();
+
+    // Redirect to the home page after successful submission
     header("Location: home.php");
     exit();
 }
@@ -66,8 +33,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./CSS/design.css">
     <title>Create Post - UngaBunga</title>
-    <!-- Include Emoji CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/emoji-picker-element@^1.0.0/dist/emoji-picker-element.css">
 </head>
 <body>
     <div class="container">
@@ -86,43 +51,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
         
         <div class="post">
-            <form action="createPost.php" method="post" enctype="multipart/form-data">
+            <form action="createPost.php" method="post">
                 <label for="title">Title:</label><br>
                 <input class="textbox" type="text" name="title" required><br>
                 
                 <label for="content">Content:</label><br>
                 <textarea class="contentbox" id="contentbox" name="content" rows="15" required></textarea><br>
-                
-                <!-- Single File Upload Input -->
-                <label for="fileUpload">Upload File:</label><br>
-                <input type="file" name="fileUpload"><br><br>
-
-                                <!-- Post Status Selection -->
-                                <label for="status">Post Status:</label><br>
-                <select name="status">
-                    <option value="draft">Draft</option>
-                    <option value="published">Published</option>
-                    <option value="archived">Archived</option>
-                </select><br><br>
-
-                <!-- Emoji Picker -->
-                <emoji-picker id="emoji-picker"></emoji-picker><br>
 
                 <button type="submit" class="btn">Publish</button>
             </form>
         </div>
     </div>
-
-    <!-- Include Emoji Picker Script -->
-    <script src="https://cdn.jsdelivr.net/npm/emoji-picker-element@^1.0.0/dist/emoji-picker-element.js"></script>
-    <script>
-        const emojiPicker = document.querySelector('#emoji-picker');
-        const contentBox = document.querySelector('#contentbox');
-
-        emojiPicker.addEventListener('emoji-click', event => {
-            const emoji = event.detail.unicode;
-            contentBox.value += emoji;
-        });
-    </script>
 </body>
 </html>
