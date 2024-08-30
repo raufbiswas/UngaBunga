@@ -1,0 +1,60 @@
+CREATE DATABASE ungabunga;
+
+USE ungabunga;
+
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL,
+    password VARCHAR(500) NOT NULL,
+    email VARCHAR(380) NOT NULL,
+    phone VARCHAR(14) NOT NULL,
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    date_of_birth DATE NOT NULL,
+    total_post INT,
+    followers INT DEFAULT 0;
+);
+
+CREATE TABLE posts (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    userID INT NOT NULL,
+    title VARCHAR(255) NOT NULL,
+    content TEXT NOT NULL,
+    file_path VARCHAR(255) NULL,
+    status ENUM('draft', 'published', 'archived') DEFAULT 'published',
+    like_count INT DEFAULT 0,
+    created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (userID) REFERENCES users(ID)
+);
+
+CREATE TABLE comments (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    postID INT NOT NULL,
+    userID INT NOT NULL,
+    commentText TEXT NOT NULL,
+    parentCommentID INT DEFAULT NULL,
+    created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (postID) REFERENCES posts(id) ON DELETE CASCADE,
+    FOREIGN KEY (userID) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (parentCommentID) REFERENCES comments(id) ON DELETE CASCADE
+);
+
+-- Indexes
+CREATE INDEX idx_postID ON comments(postID);
+CREATE INDEX idx_userID ON comments(userID);
+
+CREATE TABLE categories (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    description TEXT
+);
+
+CREATE TABLE post_categories (
+    post_id INT NOT NULL,
+    category_id INT NOT NULL,
+    PRIMARY KEY (post_id, category_id),
+    FOREIGN KEY (post_id) REFERENCES Posts(id),
+    FOREIGN KEY (category_id) REFERENCES categories(id)
+);

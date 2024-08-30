@@ -1,0 +1,357 @@
+/* Importing Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Lilita+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Baskervville+SC&family=Nerko+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Moderustic:wght@300..800&display=swap');
+
+/* General Styling */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Moderustic", sans-serif;
+    background-color: #f5f5f5;
+    color: #333333;
+    margin: 10px;
+    padding: 10px;
+    height: 100vh;
+}
+
+body.index-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Sign-In Box */
+.signbox {
+    width: 100%;
+    max-width: 500px;
+    background-color: #ffffff;
+    padding: 50px;
+    border-radius: 25px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* Logo */
+.logo {
+    font-family: "Lilita One", sans-serif;
+    font-weight: 400;
+    font-size: 3.2rem;
+    color: #007bff;
+    text-decoration: none;
+    text-align: left;
+    margin-left: 1.5rem;
+    margin-top: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.logo:hover {
+    color: #0056b3;
+}
+
+/* Input Fields */
+.textbox, .contentbox, .searchbox {
+    color: #333333;
+    background-color: #ffffff;
+    border: 1px solid #cccccc;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 800px;
+    padding: 10px 15px;
+    margin: 10px;
+    box-sizing: border-box;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.textbox:focus, .contentbox:focus, .searchbox:focus {
+    border-color: #007bff;
+    box-shadow: 0px 0px 10px rgba(0, 123, 255, 0.2);
+}
+
+/* Buttons */
+.btn, .btn-primary, .btn-secondary, .btn-edit, .btn-delete {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1rem;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+}
+
+.btn-primary {
+    background: #007bff;
+    color: #ffffff;
+}
+
+.btn-primary:hover {
+    background: #0056b3;
+}
+
+.btn-secondary {
+    background: #6c757d;
+    color: #ffffff;
+    padding: 7px 15px;
+    margin-right: 2rem;
+}
+
+.btn-secondary:hover {
+    background: #5a6268;
+}
+
+.btn-edit {
+    background: #ffc107;
+    color: #333333;
+}
+
+.btn-edit:hover {
+    background: #e0a800;
+}
+
+.btn-delete {
+    background: #dc3545;
+    color: #ffffff;
+}
+
+.btn-delete:hover {
+    background: #c82333;
+}
+
+/* Profile Header */
+.profile-header {
+    background: #f8f9fa;
+    padding: 20px;
+    text-align: center;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.profile-link, .logout-link {
+    display: inline-block;
+    margin: 0 15px;
+}
+
+.profile-link a, .logout-link a {
+    color: #007bff;
+    text-decoration: none;
+    font-size: 1.1rem;
+}
+
+.profile-link a:hover, .logout-link a:hover {
+    color: #0056b3;
+}
+
+/* Container */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Section Titles */
+.section-title {
+    font-size: 1.8rem;
+    color: #007bff;
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+/* Profile Update Section */
+.profileinfo {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+}
+
+.profileinfo p {
+    margin: 0 0 10px;
+}
+
+/* Create and Search Sections */
+.create-search {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.create-search .section-title {
+    font-size: 1.5rem;
+    color: #007bff;
+}
+
+/* User Posts Section */
+.user-posts {
+    margin-top: 20px;
+}
+
+/* Post Container */
+.post {
+    background: #ffffff;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    margin: auto;
+}
+
+/* Post Title */
+.post h2 {
+    font-size: 1.6rem;
+    color: #007bff;
+    margin-bottom: 10px;
+}
+
+/* Post Content */
+.post p {
+    color: #333333;
+    line-height: 1.6;
+}
+
+/* Post Meta Information */
+.post-meta {
+    font-size: 0.9rem;
+    color: #666666;
+    margin-top: 10px;
+}
+
+.post-meta a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.post-meta a:hover {
+    text-decoration: underline;
+}
+
+/* Comment Section */
+.comments {
+    margin-top: 20px;
+}
+
+.comments h3 {
+    font-size: 1.4rem;
+    color: #007bff;
+    margin-bottom: 15px;
+}
+
+/* Individual Comment */
+.comment {
+    background: #f8f9fa;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.comment p {
+    color: #333333;
+    line-height: 1.6;
+}
+
+.comment-meta {
+    font-size: 0.9rem;
+    color: #666666;
+}
+
+/* Comment Form */
+form {
+    margin-top: 20px;
+}
+
+textarea.textbox {
+    width: 100%;
+    margin: 0;
+    padding: 10px;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    background-color: #ffffff;
+    color: #333333;
+    resize: vertical;
+}
+
+textarea.textbox:focus {
+    border-color: #007bff;
+    background-color: #ffffff;
+}
+
+button.btn {
+    background: #007bff;
+    color: #ffffff;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background 0.3s ease;
+}
+
+button.btn:hover {
+    background: #0056b3;
+}
+
+/* Post Media */
+.post-media {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 10px 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+
+    .post-title, .comment-title {
+        font-size: 1.2rem;
+    }
+
+    .comment-box button {
+        width: 100%;
+        padding: 12px;
+    }
+}
+
+/* Header */
+.header {
+    display: flex;
+    color: #333333;
+    margin: 2rem 1.5rem;
+    width: 100vw;
+    position: relative;
+}
+
+/* Profile Icon */
+.profileicon {
+    font-size: 1.2rem;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 10px;
+    background-color: #007bff;
+    border-radius: 15px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.profileicon:hover {
+    background-color: #0056b3;
+    color: #ffffff;
+}
+.main {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 10px 0px;
+    box-sizing: border-box;
+}
