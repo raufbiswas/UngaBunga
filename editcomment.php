@@ -12,11 +12,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $commentID = $_GET['id'] ?? null;
     $commentText = $_POST['commentText'] ?? null;
     $userID = $_SESSION['user_id'] ?? null;
-    $postID = $_POST['postID'] ?? null; // Ensure postID is obtained from the form
+    $postID = $_POST['postID'] ?? null;
 
     // Validate inputs
     if (!filter_var($commentID, FILTER_VALIDATE_INT) || empty($commentText) || !filter_var($userID, FILTER_VALIDATE_INT)) {
-        die('Invalid input.');
+        echo 'Invalid input.';
+        exit();
     }
 
     // Prepare and execute the update query
@@ -31,27 +32,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                           AND userID = ?))"
     );
     if ($stmt === false) {
-        die('Prepare failed: ' . htmlspecialchars($conn->error));
+        echo 'Error preparing statement: ' . htmlspecialchars($conn->error);
+        exit();
     }
 
     // Bind parameters
-    // Note: There are 5 placeholders in the query, so 5 bind variables are needed
     $stmt->bind_param("siisi", $commentText, $commentID, $userID, $postID, $userID);
     if (!$stmt->execute()) {
-        die('Execute failed: ' . htmlspecialchars($stmt->error));
+        echo 'Error executing statement: ' . htmlspecialchars($stmt->error);
+        exit();
     }
 
     $stmt->close();
 
-    // Redirect back to the profile page
-    header("Location: profile.php");
+    // Redirect back to the profile page after successful update
+    header("Location: profile.php?message=Comment updated successfully");
     exit();
 }
 
 // Fetch comment for form
 $commentID = $_GET['id'] ?? null;
 if (!filter_var($commentID, FILTER_VALIDATE_INT)) {
-    die('Invalid comment ID.');
+    echo 'Invalid comment ID.';
+    exit();
 }
 
 $stmt = $conn->prepare("SELECT commentText, postID FROM comments WHERE id = ?");
@@ -62,7 +65,8 @@ $comment = $result->fetch_assoc();
 $stmt->close();
 
 if (!$comment) {
-    die('Comment not found.');
+    echo 'Comment not found.';
+    exit();
 }
 
 ?>
@@ -93,7 +97,7 @@ if (!$comment) {
         
         <div class="post">
             <form action="editcomment.php?id=<?= htmlspecialchars($commentID) ?>" method="post">
-                <input type="hidden" name="postID" value="<?= htmlspecialchars($comment['postID']) ?>"> <!-- Hidden input for postID -->
+                <input type="hidden" name="postID" value="<?= htmlspecialchars($comment['postID']) ?>">
                 <label for="commentText">Comment:</label><br>
                 <textarea class="contentbox" name="commentText" rows="5" required><?= htmlspecialchars($comment['commentText']) ?></textarea><br>
                 <button type="submit" class="btn">Update Comment</button>

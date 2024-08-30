@@ -40,7 +40,6 @@ body.index-page {
 /* Logo */
 .logo {
     font-family: "Lilita One", sans-serif;
-    font-weight: 400;
     font-size: 3.2rem;
     color: #007bff;
     text-decoration: none;
@@ -59,11 +58,11 @@ body.index-page {
     color: #333333;
     background-color: #ffffff;
     border: 1px solid #cccccc;
-    border-radius: 10px;
+    border-radius: 8px;
     width: 100%;
     max-width: 800px;
     padding: 10px 15px;
-    margin: 10px;
+    margin: 10px 0;
     box-sizing: border-box;
     font-size: 1rem;
     outline: none;
@@ -285,20 +284,6 @@ textarea.textbox:focus {
     background-color: #ffffff;
 }
 
-button.btn {
-    background: #007bff;
-    color: #ffffff;
-    padding: 10px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 10px;
-    transition: background 0.3s ease;
-}
-
-button.btn:hover {
-    background: #0056b3;
-}
-
 /* Post Media */
 .post-media {
     max-width: 100%;
@@ -347,11 +332,12 @@ button.btn:hover {
     background-color: #0056b3;
     color: #ffffff;
 }
+
 .main {
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    padding: 10px 0px;
+    padding: 10px 0;
     box-sizing: border-box;
 }

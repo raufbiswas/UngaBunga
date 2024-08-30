@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->close();
 
     // Redirect to the home page after successful update
-    header("Location: home.php");
+    header("Location: profile.php");
     exit();
 }
 ?>

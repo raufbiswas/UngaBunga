@@ -85,18 +85,20 @@ $stmt->close();
         <section style="margin-bottom: 2rem">
             <h2 class="section-title">Posts</h2>
             <?php
-            // Fetch posts by the user
-            $stmt = $conn->prepare("SELECT id, title, content, created, updated, userID FROM posts WHERE userID = ? ORDER BY created DESC");
-            $stmt->bind_param("i", $viewingUserID);
-            $stmt->execute();
-            $postsResult = $stmt->get_result();
+                // Fetch posts by the user
+                $stmt = $conn->prepare("SELECT id, title, content, created, updated, userID FROM posts WHERE userID = ? ORDER BY created DESC");
+                $stmt->bind_param("i", $viewingUserID);
+                $stmt->execute();
+                $postsResult = $stmt->get_result();
             ?>
             <?php if ($postsResult->num_rows > 0): ?>
                 <?php while ($post = $postsResult->fetch_assoc()): ?>
-                    <div class="post" style='margin-top: 1rem; margin-bottom:1rem'>
-                        <h3>Title: <?= htmlspecialchars($post['title']) ?></h3>
-                        <p>Content: <?= htmlspecialchars(substr($post['content'], 0, 100)) ?>...</p>
-                        <p>Created: <?= htmlspecialchars($post['created']) ?> | Updated: <?= htmlspecialchars($post['updated']) ?></p>
+                    <div class="post" style="margin-top: 1rem; margin-bottom:1rem">
+                        <h2><?= htmlspecialchars($post['title']) ?></h2>
+                        <div class="post-content" id="post-content-<?= $post['id'] ?>">
+                            <p><?= nl2br(htmlspecialchars($post['content'])) ?></p>
+                        </div>
+                        <p><br>Created: <?= htmlspecialchars($post['created']) ?> | Updated: <?= htmlspecialchars($post['updated']) ?></p><br>
                         <?php if ($viewingUserID == $userID): ?>
                             <a href="editpost.php?id=<?= htmlspecialchars($post['id']) ?>" class="btn-primary">Edit</a>
                             <a href="deletepost.php?id=<?= htmlspecialchars($post['id']) ?>" class="btn-delete">Delete</a>
