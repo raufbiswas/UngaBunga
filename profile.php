@@ -98,8 +98,8 @@ $stmt->close();
                         <p>Content: <?= htmlspecialchars(substr($post['content'], 0, 100)) ?>...</p>
                         <p>Created: <?= htmlspecialchars($post['created']) ?> | Updated: <?= htmlspecialchars($post['updated']) ?></p>
                         <?php if ($viewingUserID == $userID): ?>
-                            <a href="editPost.php?id=<?= htmlspecialchars($post['id']) ?>" class="btn-primary">Edit</a>
-                            <a href="deletePost.php?id=<?= htmlspecialchars($post['id']) ?>" class="btn-delete">Delete</a>
+                            <a href="editpost.php?id=<?= htmlspecialchars($post['id']) ?>" class="btn-primary">Edit</a>
+                            <a href="deletepost.php?id=<?= htmlspecialchars($post['id']) ?>" class="btn-delete">Delete</a>
                         <?php endif; ?>
 
                         <!-- Display Comments -->
@@ -118,15 +118,15 @@ $stmt->close();
                                         <p><b>Comment:</b> <?= htmlspecialchars($comment['commentText']) ?></p>
                                         <p>Created: <?= htmlspecialchars($comment['created']) ?></p>
                                         <?php if ($comment['userID'] == $userID || $post['userID'] == $userID): ?>
-                                            <a href="editComment.php?id=<?= htmlspecialchars($comment['id']) ?>" class="btn-primary">Edit</a>
-                                            <a href="deleteComment.php?id=<?= htmlspecialchars($comment['id']) ?>" class="btn-delete">Delete</a>
+                                            <a href="editcomment.php?id=<?= htmlspecialchars($comment['id']) ?>" class="btn-primary">Edit</a>
+                                            <a href="deletecomment.php?id=<?= htmlspecialchars($comment['id']) ?>" class="btn-delete">Delete</a>
                                         <?php endif; ?>
                                     </div>
                                     <hr>
 
                                     <!-- Reply Form for Post Owner -->
                                     <?php if ($post['userID'] == $userID): ?>
-                                        <form action="replyComment.php" method="post">
+                                        <form action="replycomment.php" method="post">
                                             <input type="hidden" name="postID" value="<?= htmlspecialchars($post['id']) ?>">
                                             <input type="hidden" name="commentID" value="<?= htmlspecialchars($comment['id']) ?>">
                                             <textarea name="reply" rows="3" cols="50" placeholder="Reply to this comment..."></textarea><br>
@@ -147,7 +147,7 @@ $stmt->close();
                         <?php if ($post['userID'] == $userID): ?>
                             <section class="comment-form" style='margin-top: 1rem;'>
                                 <h4>Add a Comment:</h4>
-                                <form action="addComment.php" method="post">
+                                <form action="addcomment.php" method="post">
                                     <input type="hidden" name="postID" value="<?= htmlspecialchars($post['id']) ?>">
                                     <textarea name="commentText" rows="3" cols="50" placeholder="Add a comment..." required></textarea><br>
                                     <button type="submit" class="btn-primary">Add Comment</button>

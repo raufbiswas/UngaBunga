@@ -24,14 +24,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Validate the input
     if (empty($title) || empty($content)) {
-        header('Location: editPost.php?id=' . htmlspecialchars($postID) . '&error=empty_fields');
+        header('Location: editpost.php?id=' . htmlspecialchars($postID) . '&error=empty_fields');
         exit();
     }
 
     // Prepare the SQL query to update the post
-    $stmt = $conn->prepare("UPDATE Posts SET title = ?, content = ?, updated = NOW() WHERE id = ? AND userID = ?");
+    $stmt = $conn->prepare("UPDATE posts SET title = ?, content = ?, updated = NOW() WHERE id = ? AND userID = ?");
     if ($stmt === false) {
-        header('Location: editPost.php?id=' . htmlspecialchars($postID) . '&error=' . urlencode('Prepare failed: ' . $conn->error));
+        header('Location: editpost.php?id=' . htmlspecialchars($postID) . '&error=' . urlencode('Prepare failed: ' . $conn->error));
         exit();
     }
     
@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit();
     } else {
         // Handle the error if the execution fails
-        header('Location: editPost.php?id=' . htmlspecialchars($postID) . '&error=' . urlencode('Execute failed: ' . $stmt->error));
+        header('Location: editpost.php?id=' . htmlspecialchars($postID) . '&error=' . urlencode('Execute failed: ' . $stmt->error));
         exit();
     }
 

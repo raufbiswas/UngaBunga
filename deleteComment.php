@@ -12,17 +12,17 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
-$commentID = $_GET['id'];
-$userID = $_SESSION['user_id'];
+$commentID = $_GET['id'] ?? null;
+$userID = $_SESSION['user_id'] ?? null;
 
 // Validate commentID
-if (!filter_var($commentID, FILTER_VALIDATE_INT)) {
+if (!filter_var($commentID, FILTER_VALIDATE_INT) || !filter_var($userID, FILTER_VALIDATE_INT)) {
     header('Location: profile.php?error=invalid_comment_id');
     exit();
 }
 
 // Prepare the SQL query to delete the comment
-$stmt = $conn->prepare("DELETE FROM comments WHERE id = ? AND (userID = ? OR EXISTS (SELECT 1 FROM Posts WHERE id = (SELECT postID FROM comments WHERE id = ?) AND userID = ?))");
+$stmt = $conn->prepare("DELETE FROM comments WHERE id = ? AND (userID = ? OR EXISTS (SELECT 1 FROM posts WHERE id = (SELECT postID FROM comments WHERE id = ?) AND userID = ?))");
 if ($stmt === false) {
     header('Location: profile.php?error=' . urlencode('Prepare failed: ' . $conn->error));
     exit();

@@ -18,7 +18,7 @@ $userID = $_SESSION['user_id'];
 
 // Fetch posts from the database
 $query = "SELECT p.id, p.title, p.content, p.created, p.updated, u.username, u.id as userID 
-          FROM Posts p 
+          FROM posts p 
           JOIN users u ON p.userID = u.id 
           ORDER BY p.created DESC";
 $result = $conn->query($query);

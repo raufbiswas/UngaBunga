@@ -24,7 +24,7 @@ if (!filter_var($postID, FILTER_VALIDATE_INT)) {
 }
 
 // Prepare the SQL query to delete the post
-$stmt = $conn->prepare("DELETE FROM Posts WHERE id = ? AND userID = ?");
+$stmt = $conn->prepare("DELETE FROM posts WHERE id = ? AND userID = ?");
 if ($stmt === false) {
     header('Location: profile.php?error=' . urlencode('Prepare failed: ' . $conn->error));
     exit();

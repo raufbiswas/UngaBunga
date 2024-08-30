@@ -11,7 +11,7 @@ $postID = $_GET['id'];
 
 // Fetch the existing post data
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    $stmt = $conn->prepare("SELECT title, content FROM Posts WHERE id = ?");
+    $stmt = $conn->prepare("SELECT title, content FROM posts WHERE id = ?");
     if ($stmt === false) {
         die('Prepare failed: ' . htmlspecialchars($conn->error));
     }
@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $content = $_POST['content'];
 
     // Update the post in the database
-    $stmt = $conn->prepare("UPDATE Posts SET title = ?, content = ? WHERE id = ?");
+    $stmt = $conn->prepare("UPDATE posts SET title = ?, content = ? WHERE id = ?");
     if ($stmt === false) {
         die('Prepare failed: ' . htmlspecialchars($conn->error));
     }
@@ -79,7 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
         
         <div class="post">
-            <form action="updatePost.php?id=<?php echo htmlspecialchars($postID); ?>" method="post">
+            <form action="updatepost.php?id=<?php echo htmlspecialchars($postID); ?>" method="post">
                 <label for="title">Title:</label><br>
                 <input class="textbox" type="text" name="title" value="<?php echo htmlspecialchars($post['title']); ?>" required><br>
                 

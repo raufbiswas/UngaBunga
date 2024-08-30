@@ -7,23 +7,36 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
+// Check if form is submitted
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $commentID = $_GET['id'];
-    $commentText = $_POST['commentText'];
-    $userID = $_SESSION['user_id'];
+    $commentID = $_GET['id'] ?? null;
+    $commentText = $_POST['commentText'] ?? null;
+    $userID = $_SESSION['user_id'] ?? null;
+    $postID = $_POST['postID'] ?? null; // Ensure postID is obtained from the form
 
-    // Validate commentID
-    if (!filter_var($commentID, FILTER_VALIDATE_INT)) {
-        die('Invalid comment ID.');
+    // Validate inputs
+    if (!filter_var($commentID, FILTER_VALIDATE_INT) || empty($commentText) || !filter_var($userID, FILTER_VALIDATE_INT)) {
+        die('Invalid input.');
     }
 
-    // Update comment in the database
-    $stmt = $conn->prepare("UPDATE comments SET commentText = ?, updated = CURRENT_TIMESTAMP WHERE id = ? AND (userID = ? OR EXISTS (SELECT 1 FROM Posts WHERE id = ? AND userID = ?))");
+    // Prepare and execute the update query
+    $stmt = $conn->prepare(
+        "UPDATE comments 
+         SET commentText = ?, updated = CURRENT_TIMESTAMP 
+         WHERE id = ? 
+         AND (userID = ? 
+              OR EXISTS (SELECT 1 
+                          FROM posts 
+                          WHERE id = ? 
+                          AND userID = ?))"
+    );
     if ($stmt === false) {
         die('Prepare failed: ' . htmlspecialchars($conn->error));
     }
-    
-    $stmt->bind_param("siis", $commentText, $commentID, $userID, $postID, $userID);
+
+    // Bind parameters
+    // Note: There are 5 placeholders in the query, so 5 bind variables are needed
+    $stmt->bind_param("siisi", $commentText, $commentID, $userID, $postID, $userID);
     if (!$stmt->execute()) {
         die('Execute failed: ' . htmlspecialchars($stmt->error));
     }
@@ -34,6 +47,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     header("Location: profile.php");
     exit();
 }
+
+// Fetch comment for form
+$commentID = $_GET['id'] ?? null;
+if (!filter_var($commentID, FILTER_VALIDATE_INT)) {
+    die('Invalid comment ID.');
+}
+
+$stmt = $conn->prepare("SELECT commentText, postID FROM comments WHERE id = ?");
+$stmt->bind_param("i", $commentID);
+$stmt->execute();
+$result = $stmt->get_result();
+$comment = $result->fetch_assoc();
+$stmt->close();
+
+if (!$comment) {
+    die('Comment not found.');
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -51,7 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <a href="home.php" class="logo">UngaBunga Blog</a>
             </span>
             <span>
-                <a href="profile.php" class="profileicon">Hi, <?= htmlspecialchars($username) ?>!</a>
+                <a href="profile.php" class="profileicon">Hi, <?= htmlspecialchars($_SESSION['username']) ?>!</a>
             </span>
         </div>
 
@@ -61,16 +92,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
         
         <div class="post">
-            <form action="editComment.php?id=<?= htmlspecialchars($_GET['id']) ?>" method="post">
-                <?php
-                $commentID = $_GET['id'];
-                $stmt = $conn->prepare("SELECT commentText FROM comments WHERE id = ?");
-                $stmt->bind_param("i", $commentID);
-                $stmt->execute();
-                $result = $stmt->get_result();
-                $comment = $result->fetch_assoc();
-                $stmt->close();
-                ?>
+            <form action="editcomment.php?id=<?= htmlspecialchars($commentID) ?>" method="post">
+                <input type="hidden" name="postID" value="<?= htmlspecialchars($comment['postID']) ?>"> <!-- Hidden input for postID -->
                 <label for="commentText">Comment:</label><br>
                 <textarea class="contentbox" name="commentText" rows="5" required><?= htmlspecialchars($comment['commentText']) ?></textarea><br>
                 <button type="submit" class="btn">Update Comment</button>
@@ -79,3 +102,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 </body>
 </html>
+
+<?php
+$conn->close();
+?>

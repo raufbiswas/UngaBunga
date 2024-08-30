@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     echo "User ID: " . htmlspecialchars($userID) . "<br>";
 
     // Insert post into the database
-    $stmt = $conn->prepare("INSERT INTO Posts (userID, title, content) VALUES (?, ?, ?)");
+    $stmt = $conn->prepare("INSERT INTO posts (userID, title, content) VALUES (?, ?, ?)");
     if ($stmt === false) {
         die('Prepare failed: ' . htmlspecialchars($conn->error));
     }
@@ -85,7 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
         
         <div class="post">
-            <form action="createPost.php" method="post">
+            <form action="createpost.php" method="post">
                 <label for="title">Title:</label><br>
                 <input class="textbox" type="text" name="title" required><br>
                 
